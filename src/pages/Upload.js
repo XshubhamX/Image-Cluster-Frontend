@@ -8,13 +8,14 @@ const FileUpload = () => {
     const uploadFile = async (e) => {
         e.preventDefault()
 
-        const file = e.target.file.files[0]
+        console.log(e.target)
+        const file = e.target[0].file.files[0]
+        const preview = e.target[1].file.files[1]
         const keywords = e.target.keywords.value.split(" ")
         // const type = e.target.type.value
 
-
-        const { data } = await mutate({ variables: { file, keywords } })
-        console.log(data)
+        // const { data } = await mutate({ variables: { file, keywords, type: "image", preview } })
+        // console.log(data)
     };
 
     if (loading) return <div>Loading...</div>;

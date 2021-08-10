@@ -41,13 +41,8 @@ const layout = (props) => {
                     </Form>
                     <Nav className="d-flex">
                         <LinkContainer to="/login">
-                            <Button variant="primary" type="submit">
-                                Login
-                            </Button>
-                        </LinkContainer>
-                        <LinkContainer to="/signup">
-                            <Button variant="btn btn-outline-primary" type="button">
-                                Register
+                            <Button className="ml-4" variant="primary" type="submit">
+                                Search
                             </Button>
                         </LinkContainer>
                     </Nav>

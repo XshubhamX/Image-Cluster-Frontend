@@ -10,6 +10,10 @@ const UniversalForm = (props) => {
                     <Form.Label>Select File </Form.Label>
                     <Form.Control type="file" />
                 </Form.Group>
+                <Form.Group controlId="file" className="mb-3">
+                    <Form.Label>Select Preview File </Form.Label>
+                    <Form.Control type="file" />
+                </Form.Group>
 
                 <Form.Group className="mb-3" controlId="keywords">
                     <Form.Label>Keywords</Form.Label>
