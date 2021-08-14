@@ -1,53 +1,42 @@
 import React from "react";
-import {
-    Navbar,
-    Form,
-    FormControl,
-    NavDropdown,
-    Button,
-    Nav
-} from "react-bootstrap";
-
-import { LinkContainer } from "react-router-bootstrap";
+import { Link } from 'react-router-dom';
 
 const layout = (props) => {
     return (
         <React.Fragment>
-            <Navbar bg="light" expand="lg" sticky="top">
-                <LinkContainer to="/">
-                    <Navbar.Brand>CONNECT</Navbar.Brand>
-                </LinkContainer>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <NavDropdown
-                        className="ml-auto"
-                        title="Select Category"
-                        id="basic-nav-dropdown"
-                    >
-                        <NavDropdown.Item href="#action/3.1">
-                            Image
-                        </NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.2">Vector</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.2">Illustration</NavDropdown.Item>
-                    </NavDropdown>
-                    <Form inline>
-                        <FormControl
-                            type="text"
-                            placeholder="Search"
-                            className="mr-sm-1"
-                        />
-                    </Form>
-                    <Nav className="d-flex">
-                        <LinkContainer to="/login">
-                            <Button className="ml-4" variant="primary" type="submit">
-                                Search
-                            </Button>
-                        </LinkContainer>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid">
+                    <Link class="navbar-brand" to="/">KPMG Image Library</Link>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarColor01">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <Link to="/images" className="nav-link">
+                                    Images
+                                </Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link to="/illustrations" className="nav-link">
+                                    Illustrations
+                                </Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link disabled">
+                                    Vectors
+                                </Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link to="/upload" className="nav-link" >
+                                    Upload
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
 
             {props.children}
         </React.Fragment>

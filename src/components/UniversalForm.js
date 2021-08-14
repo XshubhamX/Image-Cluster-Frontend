@@ -1,38 +1,40 @@
 import React from "react"
-import { Form, Button } from "react-bootstrap"
 
 
 const UniversalForm = (props) => {
     return (
-        <React.Fragment>
-            <Form onSubmit={props.upload} >
-                <Form.Group controlId="file" className="mb-3">
-                    <Form.Label>Select File </Form.Label>
-                    <Form.Control type="file" />
-                </Form.Group>
-                <Form.Group controlId="file" className="mb-3">
-                    <Form.Label>Select Preview File </Form.Label>
-                    <Form.Control type="file" />
-                </Form.Group>
+        <div class="jumbotron">
+            <form class="row g-3" onSubmit={props.upload}>
 
-                <Form.Group className="mb-3" controlId="keywords">
-                    <Form.Label>Keywords</Form.Label>
-                    <Form.Control type="text" placeholder="Add Relevant Keywords" />
-                </Form.Group>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="file">File</label>
+                    <input type="file" class="form-control" id="file" />
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="preview">Preview</label>
+                    <input type="file" class="form-control" id="preview" />
+                </div>
 
-                {/* <Form.Group controlId="type" className="mb-3">
-                    <Form.Select aria-label="Floating label select example">
+                <label for="keywords" class="form-label">Please add space seperated valid Keywords</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">Keywords</span>
+                    <input type="text" class="form-control" id="keywords" aria-describedby="basic-addon3" />
+                </div>
+
+
+                <div class="input-group">
+                    <select class="form-select" id="type" aria-label="Example select with button addon">
                         <option value="image">Image</option>
-                        <option value="vector">Vector</option>
                         <option value="illustration">Illustration</option>
-                    </Form.Select>
-                </Form.Group> */}
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-            </Form>
-        </React.Fragment>
+                        <option class="disabled" value="image">Vector</option>
+                    </select>
+                    <button class="btn btn-outline-primary" type="submit">Upload</button>
+                </div>
+            </form>
+        </div>
     )
 }
 
 export default UniversalForm
+
+
