@@ -10,7 +10,7 @@ import "./styles/index.scss";
 // import 'react-dropdown/style.css';
 const client = new ApolloClient({
   link: createUploadLink({
-    uri: "http://localhost:4000/graphql",
+    uri: "https://kpmg-image-library.herokuapp.com/graphql",
   }),
   cache: new InMemoryCache(),
   headers: {
