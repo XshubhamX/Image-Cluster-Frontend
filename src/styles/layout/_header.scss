@@ -1,0 +1,60 @@
+.navbar {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba($color: #fff, $alpha: 0.1);
+  height: 6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 5em;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 5em;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
+  @media screen and (max-width: 760px) {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+  @media screen and (max-width: 500px) {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  &__logo {
+    justify-self: flex-start;
+    cursor: pointer;
+    display: flex;
+    justify-self: flex-end;
+    align-items: center;
+    text-decoration: none;
+    & > a {
+      & > img {
+        width: 8rem;
+        object-fit: contain;
+      }
+    }
+  }
+  &__upload {
+    background-color: rgba(0, 48, 135, 0.9);
+    font-weight: 600;
+    padding: 0.6rem 1.6rem;
+    border-radius: 4px;
+    color: white;
+    font-size: 1rem;
+    margin-left: auto;
+    margin-right: 8rem;
+    // padding-right: 18em;
+    display: block;
+    // justify-self: flex-end;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: rgba(0, 48, 135, 1);
+    }
+    @media screen and (max-width: 500px) {
+      margin-right: 3.5rem;
+    }
+  }
+}

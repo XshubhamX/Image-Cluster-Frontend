@@ -1,0 +1,157 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8rem;
+  margin-bottom: 2em;
+}
+.container1 {
+  margin: 0 auto;
+  width: 100%;
+
+  height: auto;
+  max-width: 600px;
+}
+
+.autocomplete-container {
+  position: relative;
+}
+
+.autocomplete {
+  background-color: yellow;
+  display: flex;
+}
+
+input,
+button {
+  font-family: inherit;
+}
+
+.autocomplete-input {
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  outline: none;
+  border: none;
+  background-color: eee;
+  width: 100%;
+  width: 38rem;
+  padding: 0.8rem;
+
+  font-size: 16px;
+  line-height: 1.5;
+  flex: 1;
+}
+.autocomplete-input:focus {
+  outline: 1px solid rgb(160, 217, 255);
+}
+
+.autocomplete-submit {
+  border: 1px solid rgba(0, 48, 135, 0.9);
+  padding: 8px 16px;
+  background: rgba(0, 48, 135, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.autocomplete-submit svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+.autocomplete-results {
+  position: absolute;
+  margin-top: -1px;
+  padding: 4px 0;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 0.1875rem 1.5rem rgba(0, 0, 0, 0.09);
+  background: #fafafa;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: none;
+}
+
+.autocomplete-result {
+  cursor: default;
+  padding: 4px 8px;
+}
+.autocomplete-result:focus {
+  outline: 1px solid rgb(160, 217, 255);
+}
+
+.autocomplete-result:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.autocomplete-result.selected {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.search-result {
+  margin-top: 64px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+.autocomplete-result__row {
+  color: black;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+/* @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
+
+* {
+  box-sizing: border-box;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Open Sans, Verdana, sans-serif;
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+body,
+header {
+  background: #fafafa;
+}
+
+h1 {
+  margin-bottom: 0.5em;
+  font-weight: inherit;
+  line-height: 1.2;
+  color: #1c5b72;
+  font-size: 2.618em;
+}
+
+p {
+  margin-bottom: 1.3em;
+  line-height: 1.618;
+}
+
+@media (min-width: 800px) {
+  h1 {
+    font-size: 4.236em;
+    font-weight: 300;
+  }
+
+  p {
+    font-size: 1.3em;
+  }
+}
+
+a {
+  color: black;
+  text-decoration: none;
+} */

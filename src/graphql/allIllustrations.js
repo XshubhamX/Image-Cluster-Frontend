@@ -2,7 +2,7 @@ import { gql } from "@apollo/client"
 
 export const ALL_ILLUSTRATIONS = gql`
 query allIllustrations{
-  allIllustrations(skip:0,limit:1){
+  allIllustrations(skip:0,limit:3){
     illus{
       file,
       preview

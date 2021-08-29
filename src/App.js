@@ -1,11 +1,11 @@
-import React from 'react';
-import './App.css';
-import Layout from "./components/Layout"
-import Home from "./pages/Home/Home"
-import FileUpload from './pages/Upload/Upload';
-import Illustrations from "./pages/Illustrations/Illustrations"
-import Images from "./pages/Images/Images"
-import { Route, Switch, Redirect } from "react-router-dom"
+import React from "react";
+import Home from "./pages/Home/Home";
+import FileUpload from "./pages/Upload/Upload";
+import Illustrations from "./pages/Illustrations/Illustrations";
+import Images from "./pages/Images/Images";
+import Header from "./components/Header";
+import FileFromKey from "./pages/Search/FileFromKey";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 const App = () => {
   let routes = (
@@ -14,14 +14,11 @@ const App = () => {
       <Route path="/upload" component={FileUpload} />
       <Route path="/images" component={Images} />
       <Route path="/illustrations" component={Illustrations} />
+      <Route path="/search" component={FileFromKey} />
       <Redirect to="/" />
     </Switch>
   );
-  return (
-    <Layout>
-      {routes}
-    </Layout>
-  );
-}
+  return <Header>{routes}</Header>;
+};
 
 export default App;
