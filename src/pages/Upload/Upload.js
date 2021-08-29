@@ -2,18 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useMutation, gql, useQuery } from "@apollo/client";
 import imageCompression from "browser-image-compression";
 import { UPLOAD_IMAGE } from "../../graphql/Mutation";
-import UniversalForm from "../../components/UniversalForm";
 import CreatableSelect from "react-select/creatable";
 import Dropdown from "react-dropdown";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import Spinner from "../../components/Spinner";
+
 const types = ["Image", "Illustration"];
 const components = {
   DropdownIndicator: null,
 };
-const createOption = (label) => ({
-  label,
-  value: label,
-});
 
 const SEARCH_IMAGE = gql`
   query search($key: String!) {
@@ -23,12 +20,10 @@ const SEARCH_IMAGE = gql`
   }
 `;
 
-const FileUpload = () => {
+const FileUpload = (props) => {
   const [keywords, setKeywords] = useState([]);
-  const [key, setKey] = useState("");
   const [field, setField] = useState("Image");
   const [inputValue, setInputValue] = useState("");
-  const [showPreviewUpload, setShowPreviewUpload] = useState(false);
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("Upload file");
   const [preview, setPreview] = useState(null);
@@ -37,13 +32,9 @@ const FileUpload = () => {
   const [k, setK] = useState([0, 0, 0]);
   const [mainError, setMainError] = useState(true);
 
-  const [mutate, { loading, error }] = useMutation(UPLOAD_IMAGE);
+  const [mutate, { loading }] = useMutation(UPLOAD_IMAGE);
 
-  const {
-    error: error_search,
-    data,
-    loading: loading_search,
-  } = useQuery(SEARCH_IMAGE, {
+  const { data } = useQuery(SEARCH_IMAGE, {
     variables: {
       key: inputValue,
     },
@@ -61,7 +52,6 @@ const FileUpload = () => {
     } else {
       setOptions([]);
     }
-    console.log("fe");
   }, [data, k, mainError, field]);
 
   const errorChecker = () => {
@@ -105,6 +95,9 @@ const FileUpload = () => {
           preview: compressed,
         },
       });
+      if (data) {
+        props.history.push("/");
+      }
       return;
     } else if (field === "Illustration") {
       const compressed = await imageCompression(preview, options);
@@ -116,11 +109,14 @@ const FileUpload = () => {
           preview: compressed,
         },
       });
+      if (data) {
+        props.history.push("/");
+      }
       return;
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Spinner />;
   const handleMultiInputChange = (inputValue) => {
     setInputValue(inputValue);
   };
@@ -189,7 +185,6 @@ const FileUpload = () => {
     setPreviewName(x.name);
     errorChecker();
   };
-  console.log(k);
   return (
     <div className="upload-page">
       <h1 className="upload-page__title">Upload Files</h1>

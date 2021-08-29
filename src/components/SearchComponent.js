@@ -21,6 +21,7 @@ const SearchComponent = (props) => {
       field: field.toLocaleLowerCase(),
       key,
     },
+    fetchPolicy: "network-only",
   });
 
   const handelOnChange = (e) => {
@@ -69,7 +70,6 @@ const SearchComponent = (props) => {
                 </svg>
               </Link>
             </div>
-            {console.log(data)}
             {data && data.search.payload ? (
               <ul
                 id="autocomplete-results"

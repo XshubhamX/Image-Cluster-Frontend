@@ -24,11 +24,12 @@ const FileFromKey = () => {
   const query = new URLSearchParams(search);
   const [loadDisabled, setLoadDisables] = useState(false);
 
-  const { error, data, loading } = useQuery(FILE_FROM_KEY, {
+  const { data, loading } = useQuery(FILE_FROM_KEY, {
     variables: {
       field,
       key,
     },
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {
@@ -64,7 +65,6 @@ const FileFromKey = () => {
       }
       setKey(null);
     } else {
-      console.log(fieldFromParam);
       if (fieldFromParam) {
         if (["all", "image", "illustration"].includes(fieldFromParam)) {
           setField(fieldFromParam);
@@ -81,7 +81,7 @@ const FileFromKey = () => {
         setLoadDisables(true);
       }
     }
-  }, [query, search]);
+  }, [query, search, data, limit]);
 
   // let reverts;
   // if (!error) {
@@ -89,8 +89,6 @@ const FileFromKey = () => {
   // } else {
   //   reverts = <h2>error</h2>;
   // }
-
-  console.log(data);
 
   return (
     <>
