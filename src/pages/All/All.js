@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { ALL_IMAGES } from "../../graphql/allImages";
+import { ALL } from "../../graphql/getAll";
 import { useQuery } from "@apollo/client";
 import LazyLoad from "react-lazyload";
-import Spinner from "../../components/Spinner";
 import { FiDownload } from "react-icons/fi";
 
-const Images = () => {
-  const { error, data, loading } = useQuery(ALL_IMAGES, {
+const All = () => {
+  const { error, data, loading } = useQuery(ALL, {
     fetchPolicy: "network-only",
   });
 
@@ -17,14 +16,14 @@ const Images = () => {
   //   reverts = null
   // }
 
-  console.log("images", data);
+  console.log("all", data);
 
   return (
     <>
       <div className="search-page__center-container ">
         <div id="gallery" class="container-fluid">
-          {data && data.allImages.images
-            ? data.allImages.images.map((x, i) => {
+          {data && data.getAll.all
+            ? data.getAll.all.map((x, i) => {
                 return (
                   <>
                     <LazyLoad height={-50}>
@@ -49,4 +48,4 @@ const Images = () => {
     </>
   );
 };
-export default Images;
+export default All;

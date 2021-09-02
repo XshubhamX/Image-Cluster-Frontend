@@ -6,9 +6,8 @@
   position: relative;
   width: 9rem;
   overflow: hidden;
-  background-color: #f7f7f7;
-  border: 1px solid #ccc;
-  border-radius: 2px;
+  border: 1px solid #f1f1f1;
+  background-color: #e0e0e0;
   box-sizing: border-box;
   color: #333;
   cursor: default;
@@ -16,10 +15,9 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  // flex-direction: column;
-  // justify-content: center;
-  padding: 0.75rem 1.8rem;
+  padding: 0.94rem 1.8rem;
   transition: all 200ms ease;
+  border-radius: none;
 }
 
 .Dropdown-control:hover {

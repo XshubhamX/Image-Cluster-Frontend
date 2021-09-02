@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
 
-export const ALL_IMAGES = gql`
-  query allImages {
-    allImages {
-      images {
+export const ALL = gql`
+  query getAll {
+    getAll {
+      all {
         file
         preview
       }

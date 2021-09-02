@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Spinner from "../../components/Spinner";
-import SearchTab from "../../components/SearchComponent";
-import "../CSS/Grid.css";
+import SearchTab from "../../components/SearchComponentForKey";
+import LazyLoad from "react-lazyload";
+
 import { FiDownload } from "react-icons/fi";
+
 const FILE_FROM_KEY = gql`
   query fileFromKeyword($field: String, $key: String) {
     fileFromKeyword(field: $field, key: $key) {
@@ -19,10 +21,8 @@ const FILE_FROM_KEY = gql`
 const FileFromKey = () => {
   const [field, setField] = useState("");
   const [key, setKey] = useState("");
-  const [limit, setLimit] = useState();
   let { search } = useLocation();
   const query = new URLSearchParams(search);
-  const [loadDisabled, setLoadDisables] = useState(false);
 
   const { data, loading } = useQuery(FILE_FROM_KEY, {
     variables: {
@@ -39,27 +39,11 @@ const FileFromKey = () => {
 
     let keyFromParam = query.get("key") ? query.get("key").toLowerCase() : null;
 
-    let limitFromParam = query.get("limit") ? query.get("limit") : null;
-
-    if (!limitFromParam) {
-      setLimit(15);
-      query.set("limit", "15");
-    } else if (limitFromParam.toLowerCase() !== limitFromParam.toUpperCase()) {
-      setLimit(2);
-    } else {
-      try {
-        let parsed = parseInt(limitFromParam);
-        setLimit(limitFromParam);
-      } catch (error) {
-        setLimit(15);
-      }
-    }
-
     if (!keyFromParam) {
       if (!fieldFromParam) {
-        setField("image");
-      } else if (!["image", "illustration"].includes(fieldFromParam)) {
-        setField("image");
+        setField("all");
+      } else if (!["all", "image", "illustration"].includes(fieldFromParam)) {
+        setField("all");
       } else {
         setField(fieldFromParam);
       }
@@ -76,12 +60,7 @@ const FileFromKey = () => {
       }
       setKey(keyFromParam);
     }
-    if (data && data.fileFromKeyword.files) {
-      if (data.fileFromKeyword.files.length <= limit) {
-        setLoadDisables(true);
-      }
-    }
-  }, [query, search, data, limit]);
+  }, [query, search, data]);
 
   // let reverts;
   // if (!error) {
@@ -94,14 +73,16 @@ const FileFromKey = () => {
     <>
       {loading && <Spinner />}
       <div className="search-page">
-        <SearchTab />
+        <div className="search-page__search-box">
+          <SearchTab />
+        </div>
         <div className="search-page__center-container">
           <div id="gallery" class="container-fluid">
             {data && data.fileFromKeyword.files
               ? data.fileFromKeyword.files.map((x, i) => {
-                  if (i < limit) {
-                    return (
-                      <>
+                  return (
+                    <>
+                      <LazyLoad height={200}>
                         <div className="picture-container">
                           <a
                             href={x.file}
@@ -117,31 +98,863 @@ const FileFromKey = () => {
                             alt="dq"
                           />
                         </div>
-                      </>
-                    );
-                  }
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                      <LazyLoad height={200}>
+                        <div className="picture-container">
+                          <a
+                            href={x.file}
+                            key={i}
+                            download
+                            className="picture-container"
+                          >
+                            <FiDownload />
+                          </a>
+                          <img
+                            src={x.preview}
+                            class="img-responsive"
+                            alt="dq"
+                          />
+                        </div>
+                      </LazyLoad>
+                    </>
+                  );
                 })
               : null}
           </div>
         </div>
-        {!loading && data && data.fileFromKeyword.files ? (
-          <>
-            <Link
-              className="load-more__btn"
-              to={
-                !loadDisabled
-                  ? `/search?field=${field}&key=${key ? key : ""}&limit=${
-                      parseInt(limit) + 15
-                    }`
-                  : `/search?field=${field}&key=${
-                      key ? key : ""
-                    }&limit=${parseInt(limit)}`
-              }
-            >
-              Load More
-            </Link>
-          </>
-        ) : null}
       </div>
     </>
   );

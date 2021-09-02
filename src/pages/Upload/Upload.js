@@ -4,9 +4,10 @@ import imageCompression from "browser-image-compression";
 import { UPLOAD_IMAGE } from "../../graphql/Mutation";
 import CreatableSelect from "react-select/creatable";
 import Dropdown from "react-dropdown";
+import { Link } from "react-router-dom";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import Spinner from "../../components/Spinner";
-
+import { AiOutlineArrowLeft } from "react-icons/ai";
 const types = ["Image", "Illustration"];
 const components = {
   DropdownIndicator: null,
@@ -187,6 +188,16 @@ const FileUpload = (props) => {
   };
   return (
     <div className="upload-page">
+      <Link
+        to="/"
+        style={{
+          marginBottom: "105px",
+          textDecoration: "none",
+          marginTop: "-44px",
+        }}
+      >
+        <AiOutlineArrowLeft /> <span>Home</span>
+      </Link>
       <h1 className="upload-page__title">Upload Files</h1>
       <p className="upload-page__form-label">Keywords</p>
       <div className="upload-page__selects">

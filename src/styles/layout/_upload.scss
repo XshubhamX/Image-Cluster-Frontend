@@ -1,5 +1,5 @@
 .upload-page {
-  margin-top: 12rem;
+  margin-top: 6rem;
   height: 85vh;
   padding-left: 5rem;
   display: flex;
@@ -89,13 +89,23 @@ input[type="file"] {
 }
 
 .search-page {
-  // height: 80vh;
-  margin-top: 8rem;
+  margin-top: 7rem;
+  &__search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    padding: 1rem 1rem;
+    z-index: 99;
+    height: 5rem;
+    background-color: white;
+  }
 
   &__center-container {
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
-    // flex-direction: column;
+    z-index: -1;
+    border-top: 1px solid #f1f1f1;
   }
 }

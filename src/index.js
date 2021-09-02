@@ -5,12 +5,14 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 import { BrowserRouter as Router } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import "./CSS/Grid.css";
+
 import "./styles/index.scss";
 
 // import 'react-dropdown/style.css';
 const client = new ApolloClient({
   link: createUploadLink({
-    uri: "https://kpmg-image-library.herokuapp.com/graphql",
+    uri: "https://f-stock.herokuapp.com/graphql",
   }),
   cache: new InMemoryCache(),
   headers: {
