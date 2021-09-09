@@ -13,7 +13,7 @@ const SEARCH_IMAGE = gql`
   }
 `;
 
-const SearchComponentForKey = () => {
+const SearchComponentForKey = (props) => {
   const [key, setKey] = useState("");
   const [field, setField] = useState("All");
 
@@ -34,7 +34,7 @@ const SearchComponentForKey = () => {
   };
   return (
     <>
-      <form className="autocomplete-container">
+      <form className="autocomplete-container" onSubmit={props.removeKey}>
         <div
           className="autocomplete"
           aria-expanded="false"

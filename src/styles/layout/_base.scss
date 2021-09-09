@@ -27,18 +27,25 @@ body {
   margin-top: 10rem;
 }
 .img-responsive {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   position: relative;
+  border: 8px solid #ffd88e;
+  &:hover {
+    box-shadow: inset 1em 2em 4em 30rem rgba(0, 0, 0, 0.8);
+  }
 }
 .picture-container {
   position: relative;
   z-index: 3;
   transition: all 0.5s ease;
   &:hover {
-    filter: brightness(90%);
-
     & > a {
+      z-index: 99999999999999999999999999;
       opacity: 1;
       & > svg {
+        // box-shadow: inset 1em 2em 4em 30rem rgba(0, 0, 0, 0.8);
       }
     }
   }
@@ -48,11 +55,11 @@ body {
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 40%;
+    bottom: 2rem;
     opacity: 0;
     color: white;
     font-size: 2rem;
-    left: 40%;
+    right: 2rem;
     & > svg {
     }
   }
@@ -63,20 +70,9 @@ body {
         opacity: 1;
       }
       & > img {
-        box-shadow: inset 1rem 1rem 1rem 5rem rgba(0, 0, 0, 0.9);
+        background-color: rgba(0, 0, 0, 0.5);
+        // box-shadow: inset 0rem 0rem 0rem 1rem rgba(0, 0, 0, 0.9);
       }
-      // & > svg {
-      //   display: flex;
-      //   align-items: center;
-      //   justify-content: center;
-      //   position: absolute;
-      //   top: 40%;
-      //   opacity: 0;
-      //   color: white;
-      //   font-size: 2rem;
-      //   z-index: 109;
-      //   left: 40%;
-      // }
     }
   }
 }

@@ -60,6 +60,8 @@ const FileFromKey = () => {
       }
       setKey(keyFromParam);
     }
+
+    console.log(keyFromParam);
   }, [query, search, data]);
 
   // let reverts;
@@ -74,7 +76,9 @@ const FileFromKey = () => {
       {loading && <Spinner />}
       <div className="search-page">
         <div className="search-page__search-box">
-          <SearchTab />
+          <SearchTab
+            removeKey={() => console.log("---------------------------")}
+          />
         </div>
         <div className="search-page__center-container">
           <div id="gallery" class="container-fluid">
@@ -84,12 +88,7 @@ const FileFromKey = () => {
                     <>
                       <LazyLoad height={200}>
                         <div className="picture-container">
-                          <a
-                            href={x.file}
-                            key={i}
-                            download
-                            className="picture-container"
-                          >
+                          <a href={x.file} key={i} download>
                             <FiDownload />
                           </a>
                           <img

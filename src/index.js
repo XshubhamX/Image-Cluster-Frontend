@@ -12,7 +12,8 @@ import "./styles/index.scss";
 // import 'react-dropdown/style.css';
 const client = new ApolloClient({
   link: createUploadLink({
-    uri: "https://f-stock.herokuapp.com/graphql",
+    // uri: "https://f-stock.herokuapp.com/graphql",
+    uri: "http://localhost:4000/graphql",
   }),
   cache: new InMemoryCache(),
   headers: {

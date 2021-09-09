@@ -87,32 +87,32 @@ const FileUpload = (props) => {
       return;
     }
     if (field === "Image") {
-      const compressed = await imageCompression(file, options);
-      const { data } = await mutate({
-        variables: {
-          file,
-          keywords: keys,
-          type: field.toLowerCase(),
-          preview: compressed,
-        },
-      });
-      if (data) {
-        props.history.push("/");
-      }
+      // const compressed = await imageCompression(file, options);
+      // const { data } = await mutate({
+      //   variables: {
+      //     file,
+      //     keywords: keys,
+      //     type: field.toLowerCase(),
+      //     preview: compressed,
+      //   },
+      // });
+      // if (data) {
+      props.history.push("/");
+      // }
       return;
     } else if (field === "Illustration") {
-      const compressed = await imageCompression(preview, options);
-      const { data } = await mutate({
-        variables: {
-          file,
-          keywords: keys,
-          type: field.toLowerCase(),
-          preview: compressed,
-        },
-      });
-      if (data) {
-        props.history.push("/");
-      }
+      // const compressed = await imageCompression(preview, options);
+      // const { data } = await mutate({
+      //   variables: {
+      //     file,
+      //     keywords: keys,
+      //     type: field.toLowerCase(),
+      //     preview: compressed,
+      //   },
+      // });
+      // if (data) {
+      props.history.push("/");
+      // }
       return;
     }
   };
@@ -152,13 +152,22 @@ const FileUpload = (props) => {
 
   const addFileHandler = (e) => {
     const x = e.target.files[0];
+    console.log(x);
     if (field === "Image") {
-      if (!x || !x["type"].includes("image")) {
+      if (
+        !x ||
+        !x["type"].includes("image") ||
+        x["type"].includes("image/svg")
+      ) {
         setWholeError("Please upload file of image type");
         return;
       }
     } else if (field === "Illustration") {
-      if (!x || !x["type"].includes("application/postscript")) {
+      if (
+        !x ||
+        !["application/postscript", "image/svg+xml"].includes(x["type"])
+      ) {
+        console.log(!x["type"].includes("image/svg"));
         setWholeError("Please upload file of illustration type");
         return;
       }
