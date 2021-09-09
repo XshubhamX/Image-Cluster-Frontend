@@ -32,9 +32,6 @@ body {
   object-fit: contain;
   position: relative;
   border: 3px solid #ffd88e;
-  // &:hover {
-  //   box-shadow: inset 1em 2em 4em 30rem rgba(0, 0, 0, 0.8);
-  // }
 }
 .picture-container {
   position: relative;
@@ -42,9 +39,12 @@ body {
   transition: all 0.5s ease;
   &:hover {
     & > a {
+      background-color: rgb(37, 36, 36);
       z-index: 99999999999999999999999999;
       opacity: 1;
       & > svg {
+        width: 1.45rem;
+        height: 1.45rem;
         // box-shadow: inset 1em 2em 4em 30rem rgba(0, 0, 0, 0.8);
       }
     }
@@ -55,12 +55,14 @@ body {
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: 2rem;
+    bottom: 1.5rem;
     opacity: 0;
     color: white;
     font-size: 2rem;
     right: 2rem;
     & > svg {
+      width: 1.45rem;
+      height: 1.45rem;
     }
   }
 
