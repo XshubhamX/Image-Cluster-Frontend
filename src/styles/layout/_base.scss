@@ -31,10 +31,10 @@ body {
   height: 100%;
   object-fit: contain;
   position: relative;
-  border: 8px solid #ffd88e;
-  &:hover {
-    box-shadow: inset 1em 2em 4em 30rem rgba(0, 0, 0, 0.8);
-  }
+  border: 3px solid #ffd88e;
+  // &:hover {
+  //   box-shadow: inset 1em 2em 4em 30rem rgba(0, 0, 0, 0.8);
+  // }
 }
 .picture-container {
   position: relative;
