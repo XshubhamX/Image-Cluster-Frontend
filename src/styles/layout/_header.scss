@@ -1,12 +1,10 @@
 .navbar {
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
   background-color: rgba($color: #fff, $alpha: 0.1);
-  height: 6rem;
+  height: 3rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-left: 5em;
+  padding-left: 4em;
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-right: 5em;
@@ -21,6 +19,27 @@
   @media screen and (max-width: 500px) {
     padding-left: 1em;
     padding-right: 1em;
+  }
+  &__menu {
+    justify-self: flex-end;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: 12em;
+  }
+
+  &__item {
+    margin-left: 2.5em;
+    & > a {
+      color: white;
+      font-weight: 200;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   &__logo {
     justify-self: flex-start;

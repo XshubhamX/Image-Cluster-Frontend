@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import SearchTab from "../../components/SearchComponentForKey";
 import LazyLoad from "react-lazyload";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 import { FiDownload } from "react-icons/fi";
 
@@ -71,32 +73,64 @@ const FileFromKey = () => {
   //   reverts = <h2>error</h2>;
   // }
 
+  const classNames = ["big", "horizontal", "vertical"];
+
   return (
     <>
       {loading && <Spinner />}
       <div className="search-page">
         <div className="search-page__search-box">
+          <Link to="/">
+            <img src="/fstock.png" alt="" />
+          </Link>
           <SearchTab
             removeKey={() => console.log("---------------------------")}
           />
         </div>
         <div className="search-page__center-container">
-          <div id="gallery" class="container-fluid">
+          <div className="gallery">
             {data && data.fileFromKeyword.files
               ? data.fileFromKeyword.files.map((x, i) => {
+                  // if (data.fileFromKeyword.files.length === 1) {
+                  //   return (
+                  //     <LazyLoad height={-50} style={{ position: "relative" }}>
+                  //       <a href={x.file} key={i} download>
+                  //         <img src="./download.gif" alt="download-icon" />
+                  //       </a>
+                  //       <img
+                  //         src={x.preview}
+                  //         class={classNames[Math.floor(Math.random() * 3)]}
+                  //         alt="dq"
+                  //       />
+                  //     </LazyLoad>
+                  //   );
+                  // }
+                  let extention = "illus";
+                  if (
+                    ["jpg", "jpeg", "png", "pjp"].includes(
+                      x.file.split(".").at(-1)
+                    )
+                  ) {
+                    extention = "";
+                  }
                   return (
                     <>
-                      <LazyLoad height={200}>
-                        <div className="picture-container">
-                          <a href={x.file} key={i} download>
-                            <FiDownload />
-                          </a>
-                          <img
-                            src={x.preview}
-                            class="img-responsive"
-                            alt="dq"
-                          />
-                        </div>
+                      <LazyLoad height={-50}>
+                        <a
+                          href={x.file}
+                          key={i}
+                          download
+                          className="download-icon"
+                        >
+                          <img src="./download.gif" alt="download-icon" />
+                        </a>
+                        <img
+                          src={x.preview}
+                          class={`${
+                            classNames[Math.floor(Math.random() * 3)]
+                          } ${extention}`}
+                          alt="dq"
+                        />
                       </LazyLoad>
                     </>
                   );

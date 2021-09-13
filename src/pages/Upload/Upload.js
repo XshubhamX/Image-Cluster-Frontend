@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, gql, useQuery } from "@apollo/client";
-import imageCompression from "browser-image-compression";
 import { UPLOAD_IMAGE } from "../../graphql/Mutation";
 import CreatableSelect from "react-select/creatable";
 import Dropdown from "react-dropdown";
 import { Link } from "react-router-dom";
+import Header from "../../components/Header";
+import imageCompression from "browser-image-compression";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import Spinner from "../../components/Spinner";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -75,6 +76,7 @@ const FileUpload = (props) => {
   };
 
   const uploadFile = async (e) => {
+    console.log("fwwefw");
     e.preventDefault();
     const options = {
       maxSizeMB: 1,
@@ -87,32 +89,34 @@ const FileUpload = (props) => {
       return;
     }
     if (field === "Image") {
-      // const compressed = await imageCompression(file, options);
-      // const { data } = await mutate({
-      //   variables: {
-      //     file,
-      //     keywords: keys,
-      //     type: field.toLowerCase(),
-      //     preview: compressed,
-      //   },
-      // });
-      // if (data) {
-      props.history.push("/");
-      // }
+      console.log("grgrgr");
+      const compressed = await imageCompression(file, options);
+      const { data } = await mutate({
+        variables: {
+          file,
+          keywords: keys,
+          type: field.toLowerCase(),
+          preview: compressed,
+        },
+      });
+      // console.log(data);
+      if (data) {
+        props.history.push("/");
+      }
       return;
     } else if (field === "Illustration") {
-      // const compressed = await imageCompression(preview, options);
-      // const { data } = await mutate({
-      //   variables: {
-      //     file,
-      //     keywords: keys,
-      //     type: field.toLowerCase(),
-      //     preview: compressed,
-      //   },
-      // });
-      // if (data) {
-      props.history.push("/");
-      // }
+      const compressed = await imageCompression(preview, options);
+      const { data } = await mutate({
+        variables: {
+          file,
+          keywords: keys,
+          type: field.toLowerCase(),
+          preview: compressed,
+        },
+      });
+      if (data) {
+        props.history.push("/");
+      }
       return;
     }
   };
@@ -196,72 +200,72 @@ const FileUpload = (props) => {
     errorChecker();
   };
   return (
-    <div className="upload-page">
-      <Link
-        to="/"
-        style={{
-          marginBottom: "105px",
-          textDecoration: "none",
-          marginTop: "-44px",
-        }}
-      >
-        <AiOutlineArrowLeft /> <span>Home</span>
-      </Link>
-      <h1 className="upload-page__title">Upload Files</h1>
-      <p className="upload-page__form-label">Keywords</p>
-      <div className="upload-page__selects">
-        <CreatableSelect
-          inputValue={inputValue}
-          isMulti
-          onInputChange={handleMultiInputChange}
-          onChange={handleSkillChange}
-          components={components}
-          isClearable={false}
-          backspaceRemoves={false}
-          // menuIsOpen={false}
-          placeholder="Type something and press enter..."
-          // value={keywords}
-          options={options}
-        />
-      </div>
+    <>
+      <Header />
 
-      <div className="upload-page__form-control">
-        <Dropdown
-          options={types}
-          onChange={handelOnChange}
-          value={field}
-          placeholder="Select an option"
-        />
-        <div className="upload-page__form-control-form">
-          <label for="file-upload" class="custom-file-upload">
-            <AiOutlineCloudUpload />
-            <span>{fileName}</span>
-          </label>
-          <input id="file-upload" type="file" onChange={addFileHandler} />
-        </div>
-        {field === "Illustration" && (
-          <div className="upload-page__preview-upload">
-            <label for="file-upload2" class="custom-file-upload">
-              <AiOutlineCloudUpload />
-              <span>{previewName}</span>
-            </label>
-            <input id="file-upload2" type="file" onChange={addPreviewHandler} />
+      <div className="upload-page">
+        <div className="upload-page__container">
+          <h1 className="upload-page__title">Upload Files</h1>
+          <p className="upload-page__form-label">Keywords</p>
+          <div className="upload-page__selects">
+            <CreatableSelect
+              inputValue={inputValue}
+              isMulti
+              onInputChange={handleMultiInputChange}
+              onChange={handleSkillChange}
+              components={components}
+              isClearable={false}
+              backspaceRemoves={false}
+              // menuIsOpen={false}
+              placeholder="Type something and press enter..."
+              // value={keywords}
+              options={options}
+            />
           </div>
-        )}
+
+          <div className="upload-page__form-control">
+            <Dropdown
+              options={types}
+              onChange={handelOnChange}
+              value={field}
+              placeholder="Select an option"
+            />
+            <div className="upload-page__form-control-form">
+              <label for="file-upload" class="custom-file-upload">
+                <AiOutlineCloudUpload />
+                <span>{fileName.slice(0, 20)}...</span>
+              </label>
+              <input id="file-upload" type="file" onChange={addFileHandler} />
+            </div>
+            {field === "Illustration" && (
+              <div className="upload-page__preview-upload">
+                <label for="file-upload2" class="custom-file-upload">
+                  <AiOutlineCloudUpload />
+                  <span>{previewName.slice(0, 20)}...</span>
+                </label>
+                <input
+                  id="file-upload2"
+                  type="file"
+                  onChange={addPreviewHandler}
+                />
+              </div>
+            )}
+          </div>
+          <button
+            className="upload-page__btn"
+            onClick={uploadFile}
+            disabled={mainError}
+          >
+            Upload
+          </button>
+          {wholeError && (!file || !preview) ? (
+            <p style={{ marginTop: "18px", color: "red", fontSize: "14px" }}>
+              *{wholeError}
+            </p>
+          ) : null}
+        </div>
       </div>
-      <button
-        className="upload-page__btn"
-        onClick={uploadFile}
-        disabled={mainError}
-      >
-        Upload
-      </button>
-      {wholeError && (!file || !preview) ? (
-        <p style={{ marginTop: "18px", color: "red", fontSize: "14px" }}>
-          *{wholeError}
-        </p>
-      ) : null}
-    </div>
+    </>
   );
 };
 export default FileUpload;

@@ -4,6 +4,8 @@ import Images from "../Images/Images";
 import { useLocation } from "react-router-dom";
 import Illustrations from "../Illustrations/Illustrations";
 import All from "../All/All";
+import Header from "../../components/Header";
+import Masonry from "react-responsive-masonry";
 
 const Home = () => {
   // const [drop, setDrop] = useState(true);
@@ -32,7 +34,6 @@ const Home = () => {
   if (query.get("field") === "image") {
     mainImages = <Images />;
   } else if (query.get("field") === "illustration") {
-    console.log("h");
     mainImages = <Illustrations />;
   } else {
     mainImages = <All />;
@@ -40,6 +41,7 @@ const Home = () => {
 
   return (
     <>
+      <Header />
       <div className="search-container">
         <SearchTab />
       </div>

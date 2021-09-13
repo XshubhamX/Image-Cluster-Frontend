@@ -34,7 +34,7 @@ const SearchComponentForKey = (props) => {
   };
   return (
     <>
-      <form className="autocomplete-container" onSubmit={props.removeKey}>
+      <form className="autocomplete-container">
         <div
           className="autocomplete"
           aria-expanded="false"
@@ -79,7 +79,7 @@ const SearchComponentForKey = (props) => {
                   if (i < 5) {
                     return (
                       <Link
-                        to={`/search?field=${field}&key=${x}&limit${15}`}
+                        to={`/search?field=${field}&key=${x}`}
                         key={x}
                         className="autocomplete-result__row"
                       >

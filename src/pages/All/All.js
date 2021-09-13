@@ -10,6 +10,9 @@ const All = () => {
   });
 
   let reverts;
+
+  const classNames = ["big", "horizontal", "vertical"];
+
   // if (loading) {
   //   reverts = <Spinner />;
   // }else{
@@ -20,24 +23,36 @@ const All = () => {
 
   return (
     <>
-      <div className="search-page__center-container ">
-        <div id="gallery" class="container-fluid">
+      <div className="search-page__center-container">
+        <div className="gallery">
           {data && data.getAll.all
             ? data.getAll.all.map((x, i) => {
+                let extention = "illus";
+                if (
+                  ["jpg", "jpeg", "png", "pjp"].includes(
+                    x.file.split(".").at(-1)
+                  )
+                ) {
+                  extention = "";
+                }
                 return (
                   <>
                     <LazyLoad height={-50}>
-                      <div className="picture-container">
-                        <a
-                          href={x.file}
-                          key={i}
-                          download
-                          className="picture-container"
-                        >
-                          <FiDownload />
-                        </a>
-                        <img src={x.preview} class="img-responsive" alt="dq" />
-                      </div>
+                      <a
+                        href={x.file}
+                        key={i}
+                        download
+                        className="picture-container"
+                      >
+                        <img src="./download.gif" alt="download-icon" />
+                      </a>
+                      <img
+                        src={x.preview}
+                        class={`${
+                          classNames[Math.floor(Math.random() * 3)]
+                        } ${extention}`}
+                        alt="dq"
+                      />
                     </LazyLoad>
                   </>
                 );

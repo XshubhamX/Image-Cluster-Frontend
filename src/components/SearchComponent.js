@@ -92,7 +92,7 @@ const SearchComponent = (props) => {
                         if (i < 5) {
                           return (
                             <Link
-                              to={`/search?field=${field}&key=${x}&limit${15}`}
+                              to={`/search?field=${field}&key=${x}`}
                               key={x}
                               className="autocomplete-result__row"
                             >
