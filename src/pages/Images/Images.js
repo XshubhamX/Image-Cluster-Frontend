@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { ALL_IMAGES } from "../../graphql/allImages";
 import { useQuery } from "@apollo/client";
 import LazyLoad from "react-lazyload";
-import Spinner from "../../components/Spinner";
-import { FiDownload } from "react-icons/fi";
+// import Spinner from "../../components/Spinner";
+// import { FiDownload } from "react-icons/fi";
 const Images = () => {
-  const { error, data, loading } = useQuery(ALL_IMAGES, {
+  const { data } = useQuery(ALL_IMAGES, {
     fetchPolicy: "network-only",
   });
 
@@ -15,8 +15,6 @@ const Images = () => {
   // }else{
   //   reverts = null
   // }
-
-  console.log("images", data);
 
   const classNames = ["big", "horizontal", "vertical"];
 
@@ -39,7 +37,7 @@ const Images = () => {
                       </a>
                       <img
                         src={x.preview}
-                        class={classNames[Math.floor(Math.random() * 3)]}
+                        className={classNames[Math.floor(Math.random() * 3)]}
                         alt="dq"
                       />
                     </LazyLoad>

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { ALL_ILLUSTRATIONS } from "../../graphql/allIllustrations";
 import { useQuery } from "@apollo/client";
-import Spinner from "../../components/Spinner";
+// import Spinner from "../../components/Spinner";
 import LazyLoad from "react-lazyload";
-import { FiDownload } from "react-icons/fi";
+// import { FiDownload } from "react-icons/fi";
 
 const Illustrations = () => {
-  const { error, data, loading } = useQuery(ALL_ILLUSTRATIONS, {
+  const { data } = useQuery(ALL_ILLUSTRATIONS, {
     fetchPolicy: "network-only",
   });
 
@@ -17,7 +17,6 @@ const Illustrations = () => {
   //   reverts = null;
   // }
 
-  console.log("illus", data);
   const classNames = ["big", "horizontal", "vertical"];
 
   return (
@@ -28,7 +27,7 @@ const Illustrations = () => {
             ? data.allIllustrations.illus.map((x, i) => {
                 return (
                   <>
-                    <LazyLoad height={-50}>
+                    <LazyLoad height={-50} className="illus">
                       <a
                         href={x.file}
                         key={i}
@@ -39,9 +38,9 @@ const Illustrations = () => {
                       </a>
                       <img
                         src={x.preview}
-                        class={`${
+                        className={`${
                           classNames[Math.floor(Math.random() * 3)]
-                        } illus`}
+                        } `}
                         alt="dq"
                       />
                     </LazyLoad>

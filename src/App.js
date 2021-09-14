@@ -6,8 +6,6 @@ import Images from "./pages/Images/Images";
 import FileFromKey from "./pages/Search/FileFromKey";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import Header from "./components/Header";
-
 const App = () => {
   return (
     <>

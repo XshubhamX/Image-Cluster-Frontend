@@ -3,12 +3,12 @@ import { useMutation, gql, useQuery } from "@apollo/client";
 import { UPLOAD_IMAGE } from "../../graphql/Mutation";
 import CreatableSelect from "react-select/creatable";
 import Dropdown from "react-dropdown";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import imageCompression from "browser-image-compression";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import Spinner from "../../components/Spinner";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+// import { AiOutlineArrowLeft } from "react-icons/ai";
 const types = ["Image", "Illustration"];
 const components = {
   DropdownIndicator: null,
@@ -76,7 +76,6 @@ const FileUpload = (props) => {
   };
 
   const uploadFile = async (e) => {
-    console.log("fwwefw");
     e.preventDefault();
     const options = {
       maxSizeMB: 1,
@@ -89,7 +88,6 @@ const FileUpload = (props) => {
       return;
     }
     if (field === "Image") {
-      console.log("grgrgr");
       const compressed = await imageCompression(file, options);
       const { data } = await mutate({
         variables: {
@@ -156,7 +154,6 @@ const FileUpload = (props) => {
 
   const addFileHandler = (e) => {
     const x = e.target.files[0];
-    console.log(x);
     if (field === "Image") {
       if (
         !x ||
@@ -171,7 +168,6 @@ const FileUpload = (props) => {
         !x ||
         !["application/postscript", "image/svg+xml"].includes(x["type"])
       ) {
-        console.log(!x["type"].includes("image/svg"));
         setWholeError("Please upload file of illustration type");
         return;
       }

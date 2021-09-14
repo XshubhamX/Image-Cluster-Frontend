@@ -4,10 +4,10 @@ import { useLocation } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import SearchTab from "../../components/SearchComponentForKey";
 import LazyLoad from "react-lazyload";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+// import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-import { FiDownload } from "react-icons/fi";
+// import { FiDownload } from "react-icons/fi";
 
 const FILE_FROM_KEY = gql`
   query fileFromKeyword($field: String, $key: String) {
@@ -91,20 +91,20 @@ const FileFromKey = () => {
           <div className="gallery">
             {data && data.fileFromKeyword.files
               ? data.fileFromKeyword.files.map((x, i) => {
-                  // if (data.fileFromKeyword.files.length === 1) {
-                  //   return (
-                  //     <LazyLoad height={-50} style={{ position: "relative" }}>
-                  //       <a href={x.file} key={i} download>
-                  //         <img src="./download.gif" alt="download-icon" />
-                  //       </a>
-                  //       <img
-                  //         src={x.preview}
-                  //         class={classNames[Math.floor(Math.random() * 3)]}
-                  //         alt="dq"
-                  //       />
-                  //     </LazyLoad>
-                  //   );
-                  // }
+                  if (data.fileFromKeyword.files.length === 1) {
+                    return (
+                      <LazyLoad height={-50} style={{ position: "relative" }}>
+                        <a href={x.file} key={i} download>
+                          <img src="./download.gif" alt="download-icon" />
+                        </a>
+                        <img
+                          src={x.preview}
+                          class={classNames[Math.floor(Math.random() * 3)]}
+                          alt="dq"
+                        />
+                      </LazyLoad>
+                    );
+                  }
                   let extention = "illus";
                   if (
                     ["jpg", "jpeg", "png", "pjp"].includes(
@@ -115,7 +115,7 @@ const FileFromKey = () => {
                   }
                   return (
                     <>
-                      <LazyLoad height={-50}>
+                      <LazyLoad key={i} height={-50} className={extention}>
                         <a
                           href={x.file}
                           key={i}
@@ -126,9 +126,9 @@ const FileFromKey = () => {
                         </a>
                         <img
                           src={x.preview}
-                          class={`${
+                          className={`${
                             classNames[Math.floor(Math.random() * 3)]
-                          } ${extention}`}
+                          }`}
                           alt="dq"
                         />
                       </LazyLoad>

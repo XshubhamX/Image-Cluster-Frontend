@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Dropdown from "react-dropdown";
@@ -32,6 +32,7 @@ const SearchComponentForKey = (props) => {
   const queryHandler = (e) => {
     setKey(e.target.value);
   };
+
   return (
     <>
       <form className="autocomplete-container">
@@ -79,6 +80,7 @@ const SearchComponentForKey = (props) => {
                   if (i < 5) {
                     return (
                       <Link
+                        type="submit"
                         to={`/search?field=${field}&key=${x}`}
                         key={x}
                         className="autocomplete-result__row"

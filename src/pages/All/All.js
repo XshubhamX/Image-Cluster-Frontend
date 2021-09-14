@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { ALL } from "../../graphql/getAll";
 import { useQuery } from "@apollo/client";
 import LazyLoad from "react-lazyload";
-import { FiDownload } from "react-icons/fi";
+// import { FiDownload } from "react-icons/fi";
 
 const All = () => {
-  const { error, data, loading } = useQuery(ALL, {
+  const { data } = useQuery(ALL, {
     fetchPolicy: "network-only",
   });
 
@@ -37,7 +37,7 @@ const All = () => {
                 }
                 return (
                   <>
-                    <LazyLoad height={-50}>
+                    <LazyLoad height={-50} className={extention}>
                       <a
                         href={x.file}
                         key={i}
@@ -48,9 +48,9 @@ const All = () => {
                       </a>
                       <img
                         src={x.preview}
-                        class={`${
+                        className={`${
                           classNames[Math.floor(Math.random() * 3)]
-                        } ${extention}`}
+                        }`}
                         alt="dq"
                       />
                     </LazyLoad>
