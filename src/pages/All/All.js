@@ -28,11 +28,9 @@ const All = () => {
           {data && data.getAll.all
             ? data.getAll.all.map((x, i) => {
                 let extention = "illus";
-                if (
-                  ["jpg", "jpeg", "png", "pjp"].includes(
-                    x.file.split(".").at(-1)
-                  )
-                ) {
+                let arr = x.file.split(".");
+                let ext = arr[arr.length - 1];
+                if (["jpg", "jpeg", "png", "pjp"].includes(ext)) {
                   extention = "";
                 }
                 return (
