@@ -6,6 +6,7 @@ import SearchTab from "../../components/SearchComponentForKey";
 import LazyLoad from "react-lazyload";
 // import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import Modal from "../../components/MessageModal";
 
 // import { FiDownload } from "react-icons/fi";
 
@@ -26,6 +27,9 @@ const FileFromKey = () => {
   let { search } = useLocation();
   const query = new URLSearchParams(search);
 
+  // console.log("fromkey", field);
+  // console.log("fromkey", key);
+
   const { data, loading } = useQuery(FILE_FROM_KEY, {
     variables: {
       field,
@@ -40,6 +44,8 @@ const FileFromKey = () => {
       : null;
 
     let keyFromParam = query.get("key") ? query.get("key").toLowerCase() : null;
+    // console.log("fromkey", fieldFromParam);
+    // console.log("fromkey", keyFromParam);
 
     if (!keyFromParam) {
       if (!fieldFromParam) {
@@ -62,9 +68,10 @@ const FileFromKey = () => {
       }
       setKey(keyFromParam);
     }
-
-    console.log(keyFromParam);
-  }, [query, search, data]);
+    // console.log(key);
+    // console.log(field);
+    // console.log(keyFromParam);
+  }, [query]);
 
   // let reverts;
   // if (!error) {
@@ -84,13 +91,18 @@ const FileFromKey = () => {
             <img src="/fstock.png" alt="" />
           </Link>
           <SearchTab
-            removeKey={() => console.log("---------------------------")}
+            // removeKey={() => console.log("---------------------------")}
+            val={key}
           />
         </div>
         <div className="search-page__center-container">
           <div className="gallery">
             {data && data.fileFromKeyword.files
               ? data.fileFromKeyword.files.map((x, i) => {
+                  if (!data.fileFromKeyword.files.length) {
+                    // console.log("fwefewfwfwef");
+                    return <Modal showModal={true} />;
+                  }
                   if (data.fileFromKeyword.files.length === 1) {
                     return (
                       <LazyLoad height={-50} style={{ position: "relative" }}>

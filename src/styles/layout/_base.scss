@@ -43,6 +43,9 @@ body {
     }
 
     &:hover {
+      & img {
+        cursor: pointer;
+      }
       & > a {
         opacity: 1;
       }

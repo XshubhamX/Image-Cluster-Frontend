@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 import Dropdown from "react-dropdown";
 import "../CSS/SearchTab.css";
 
@@ -14,8 +16,12 @@ const SEARCH_IMAGE = gql`
 `;
 
 const SearchComponentForKey = (props) => {
+  let { search } = useLocation();
   const [key, setKey] = useState("");
   const [field, setField] = useState("All");
+  const [showSearch, setShowSearch] = useState(false);
+
+  const query = new URLSearchParams(search);
 
   const { error, data, loading } = useQuery(SEARCH_IMAGE, {
     variables: {
@@ -27,15 +33,41 @@ const SearchComponentForKey = (props) => {
 
   const handelOnChange = (e) => {
     setField(e.value);
+    props.history.push(
+      `/search?field=${e.value.toLocaleLowerCase()}&key=${key}`
+    );
   };
 
   const queryHandler = (e) => {
-    setKey(e.target.value);
+    setShowSearch(true);
+    const key_str = e.target.value.replace(/[^a-zA-Z ]/g, "");
+    setKey(key_str);
   };
+
+  useEffect(() => {
+    const keyFromParam = query.get("key") ? query.get("key").toLowerCase() : "";
+    const fieldFromParam = query.get("field")
+      ? query.get("field").toLowerCase()
+      : field;
+
+    setKey(keyFromParam);
+    if (["all", "illustration", "image"].includes(fieldFromParam)) {
+      setField(fieldFromParam[0].toUpperCase() + fieldFromParam.slice(1));
+    } else {
+      setField("All");
+    }
+  }, []);
 
   return (
     <>
-      <form className="autocomplete-container">
+      <form
+        className="autocomplete-container"
+        onSubmit={(e) => {
+          setShowSearch(false);
+          e.preventDefault();
+          props.history.push(`/search?field=${field}&key=${key}`);
+        }}
+      >
         <div
           className="autocomplete"
           aria-expanded="false"
@@ -54,6 +86,7 @@ const SearchComponentForKey = (props) => {
             aria-label="Search for Images"
             aria-autocomplete="both"
             aria-controls="autocomplete-results"
+            value={key}
             id="searchTab"
             onChange={queryHandler}
           />
@@ -68,7 +101,7 @@ const SearchComponentForKey = (props) => {
             </svg>
           </Link>
         </div>
-        {data && data.search.payload ? (
+        {showSearch ? (
           <ul
             id="autocomplete-results"
             className="autocomplete-results"
@@ -80,6 +113,10 @@ const SearchComponentForKey = (props) => {
                   if (i < 5) {
                     return (
                       <Link
+                        onClick={() => {
+                          setShowSearch(false);
+                          setKey(x);
+                        }}
                         type="submit"
                         to={`/search?field=${field}&key=${x}`}
                         key={x}
@@ -103,4 +140,4 @@ const SearchComponentForKey = (props) => {
   );
 };
 
-export default SearchComponentForKey;
+export default withRouter(SearchComponentForKey);

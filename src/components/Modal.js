@@ -223,7 +223,7 @@ const Modal = ({ showModal, setShowModal }) => {
 
   const addFileHandler = (e) => {
     const x = e.target.files[0];
-    console.log(x);
+    // console.log(x);
     if (field === "Image") {
       if (
         !x ||
@@ -238,7 +238,7 @@ const Modal = ({ showModal, setShowModal }) => {
         !x ||
         !["application/postscript", "image/svg+xml"].includes(x["type"])
       ) {
-        console.log(!x["type"].includes("image/svg"));
+        // console.log(!x["type"].includes("image/svg"));
         setWholeError("Please upload file of illustration type");
         return;
       }

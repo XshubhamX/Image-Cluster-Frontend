@@ -19,7 +19,7 @@ const All = () => {
   //   reverts = null
   // }
 
-  console.log("all", data);
+  // console.log("all", data);
 
   return (
     <>

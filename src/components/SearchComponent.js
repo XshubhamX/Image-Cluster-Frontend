@@ -17,6 +17,8 @@ const SEARCH_IMAGE = gql`
 const SearchComponent = (props) => {
   const [key, setKey] = useState("");
   const [field, setField] = useState("All");
+  const [showSearch, setShowSearch] = useState(false);
+
   let { search } = useLocation();
   const query = new URLSearchParams(search);
   const { error, data, loading } = useQuery(SEARCH_IMAGE, {
@@ -35,7 +37,9 @@ const SearchComponent = (props) => {
   };
 
   const queryHandler = (e) => {
-    setKey(e.target.value);
+    setShowSearch(true);
+    const key_str = e.target.value.replace(/[^a-zA-Z ]/g, "");
+    setKey(key_str);
   };
 
   return (
@@ -47,7 +51,14 @@ const SearchComponent = (props) => {
             <p>Image Library</p>
           </div>
           <div className="search-bar__row">
-            <form className="autocomplete-container">
+            <form
+              className="autocomplete-container"
+              onSubmit={(e) => {
+                e.preventDefault();
+                setShowSearch(false);
+                props.history.push(`/search?field=${field}&key=${key}`);
+              }}
+            >
               <div
                 className="autocomplete"
                 aria-expanded="false"
@@ -55,6 +66,7 @@ const SearchComponent = (props) => {
                 aria-haspopup="listbox"
               >
                 <Dropdown
+                  onFocus={() => setShowSearch(false)}
                   options={options}
                   onChange={handelOnChange}
                   value={field}
@@ -80,7 +92,7 @@ const SearchComponent = (props) => {
                   </svg>
                 </Link>
               </div>
-              {data && data.search.payload ? (
+              {showSearch ? (
                 <ul
                   id="autocomplete-results"
                   className="autocomplete-results"
