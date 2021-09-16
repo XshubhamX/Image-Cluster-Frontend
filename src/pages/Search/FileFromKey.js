@@ -38,6 +38,8 @@ const FileFromKey = () => {
     fetchPolicy: "network-only",
   });
 
+  console.log(data);
+
   useEffect(() => {
     let fieldFromParam = query.get("field")
       ? query.get("field").toLowerCase()
@@ -97,55 +99,62 @@ const FileFromKey = () => {
         </div>
         <div className="search-page__center-container">
           <div className="gallery">
-            {data && data.fileFromKeyword.files
-              ? data.fileFromKeyword.files.map((x, i) => {
-                  if (!data.fileFromKeyword.files.length) {
-                    // console.log("fwefewfwfwef");
-                    return <Modal showModal={true} />;
-                  }
-                  if (data.fileFromKeyword.files.length === 1) {
-                    return (
-                      <LazyLoad height={-50} style={{ position: "relative" }}>
-                        <a href={x.file} key={i} download>
-                          <img src="./download.gif" alt="download-icon" />
-                        </a>
-                        <img
-                          src={x.preview}
-                          class={classNames[Math.floor(Math.random() * 3)]}
-                          alt="dq"
-                        />
-                      </LazyLoad>
-                    );
-                  }
-                  let extention = "illus";
-                  let arr = x.file.split(".");
-                  let ext = arr[arr.length - 1];
-                  if (["jpg", "jpeg", "png", "pjp"].includes(ext)) {
-                    extention = "";
-                  }
+            {data &&
+            data.fileFromKeyword.files &&
+            !data.fileFromKeyword.files.length ? (
+              <h1 style={{ marginTop: "3rem", textAlign: "center" }}>
+                No Files Found
+              </h1>
+            ) : data && data.fileFromKeyword.files ? (
+              data.fileFromKeyword.files.map((x, i) => {
+                if (data.fileFromKeyword.files.length === 1) {
                   return (
-                    <>
-                      <LazyLoad key={i} height={-50} className={extention}>
-                        <a
-                          href={x.file}
-                          key={i}
-                          download
-                          className="download-icon"
-                        >
-                          <img src="./download.gif" alt="download-icon" />
-                        </a>
-                        <img
-                          src={x.preview}
-                          className={`${
-                            classNames[Math.floor(Math.random() * 3)]
-                          }`}
-                          alt="dq"
-                        />
-                      </LazyLoad>
-                    </>
+                    <div
+                      style={{
+                        width: "25rem",
+                        height: "20rem",
+                      }}
+                    >
+                      <a href={x.file} key={i} download>
+                        <img src="./download.gif" alt="download-icon" />
+                      </a>
+                      <img
+                        src={x.preview}
+                        class={classNames[Math.floor(Math.random() * 3)]}
+                        alt="dq"
+                      />
+                    </div>
                   );
-                })
-              : null}
+                }
+                let extention = "illus";
+                let arr = x.file.split(".");
+                let ext = arr[arr.length - 1];
+                if (["jpg", "jpeg", "png", "pjp"].includes(ext)) {
+                  extention = "";
+                }
+                return (
+                  <>
+                    <LazyLoad key={i} height={-50} className={extention}>
+                      <a
+                        href={x.file}
+                        key={i}
+                        download
+                        className="download-icon"
+                      >
+                        <img src="./download.gif" alt="download-icon" />
+                      </a>
+                      <img
+                        src={x.preview}
+                        className={`${
+                          classNames[Math.floor(Math.random() * 3)]
+                        }`}
+                        alt="dq"
+                      />
+                    </LazyLoad>
+                  </>
+                );
+              })
+            ) : null}
           </div>
         </div>
       </div>
